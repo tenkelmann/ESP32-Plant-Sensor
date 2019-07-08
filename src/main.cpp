@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "DHT.h"
 
 #define DHTTYPE DHT11

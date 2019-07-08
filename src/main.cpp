@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "DHT.h"
+#include "DHT_U.h"
 
 const int SOIL_PIN = 32;
 const int DHT_PIN = 22;

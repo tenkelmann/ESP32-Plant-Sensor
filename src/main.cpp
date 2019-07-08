@@ -1,11 +1,6 @@
 #include <Arduino.h>
 #include "DHT.h"
 
-#define DHTTYPE DHT11
-#define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP  5        /* Time ESP32 will go to sleep (in seconds) */
-
-RTC_DATA_ATTR int bootCount = 0;
 const int SOIL_PIN = 32;
 const int DHT_PIN = 22;
 const int POWER_PIN = 34;
@@ -13,6 +8,11 @@ long timeout;
 char deviceid[21];
 static char celsiusTemp[7];
 static char humidityTemp[7];
+#define DHTTYPE DHT11
+#define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
+#define TIME_TO_SLEEP  5        /* Time ESP32 will go to sleep (in seconds) */
+
+void sensorsData(char* body);
 
 DHT dht(DHT_PIN, DHTTYPE);
 
@@ -21,10 +21,6 @@ void setup() {
 
   Serial.begin(115200);
   delay(1000); //Take some time to open up the Serial Monitor
-
-  //Increment boot number and print it every reboot
-  ++bootCount;
-  Serial.println("Boot number: " + String(bootCount));
 
   /*
     First we configure the wake up source
